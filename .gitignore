@@ -2,3 +2,5 @@
 .idea
 .venv
 chat_history1.db
+venv
+env
