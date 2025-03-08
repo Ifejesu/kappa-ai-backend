@@ -6,8 +6,8 @@ from sqlalchemy.orm import sessionmaker, declarative_base, relationship
 from sqlalchemy.exc import SQLAlchemyError
 
 #Database setup
-DATABASE_URL=URL.create("sqlite",host="localhost",database="chat_history.db")
-# DATABASE_URL="sqlite:////home/cyberjroid/Documents/Projects/CyberJroid/Tutorials/Divverse/Team Kappa/kappa_backend/chat_history1.db"
+# DATABASE_URL=URL.create("sqlite",host="localhost",database="chat_history.db")
+DATABASE_URL="sqlite:///chat_history.db"
 engine = create_engine(DATABASE_URL,connect_args={"check_same_thread": False})
 SessionLocal=sessionmaker(bind=engine, autoflush=False,autocommit=False)
 
@@ -17,30 +17,30 @@ Base= declarative_base()
 
 class User(Base):
     __tablename__ = "user"
-    
+
     id = Column(Integer, primary_key=True, index=True)
     username= Column(String,unique=True, index=True)
     image=Column(String, unique=True, index=True)
     hashed_password= Column(String)
 
 class ChatHistory(Base):
-    __tablename__ = "chat_history" 
-    
+    __tablename__ = "chat_history"
+
     id = Column(Integer,primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("user.id"))
     message = Column(Text)
-    
+
     user= relationship("User")
 
 class AiAvatar(Base):
-    __tablename__ = "ai_avatar" 
-    
+    __tablename__ = "ai_avatar"
+
     id = Column(Integer,primary_key=True, index=True)
     image=Column(String, unique=True, index=True)
-    
-   
-    
-        
+
+
+
+
 #Create Tables
 Base.metadata.create_all(bind=engine)
 
